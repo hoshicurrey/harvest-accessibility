@@ -174,7 +174,7 @@ class HarvestAccessibilityAlg(QgsProcessingAlgorithm):
             p1 = processing.run(
                 "native:extractbylocation",
                 {
-                    "INPUT": grid_layer.id(),
+                    "INPUT": grid_layer,
                     "PREDICATE": [0],  # intersects
                     "INTERSECT": parameters[self.POLY],
                     "OUTPUT": "memory:"
@@ -191,7 +191,7 @@ class HarvestAccessibilityAlg(QgsProcessingAlgorithm):
             p1 = processing.run(
                 "native:fieldcalculator",
                 {
-                    "INPUT": p1.id(),
+                    "INPUT": p1,
                     "FIELD_NAME": "tree_id",
                     "FIELD_TYPE": 1,  # int
                     "FIELD_LENGTH": 10,
@@ -207,7 +207,7 @@ class HarvestAccessibilityAlg(QgsProcessingAlgorithm):
             shortest_lines = processing.run(
                 "native:shortestline",
                 {
-                    "SOURCE": p1.id(),
+                    "SOURCE": p1,
                     "DESTINATION": parameters[self.ROADS],
                     "METHOD": 0,
                     "NEIGHBORS": 1,
@@ -219,7 +219,7 @@ class HarvestAccessibilityAlg(QgsProcessingAlgorithm):
             shortest_lines = processing.run(
                 "native:fieldcalculator",
                 {
-                    "INPUT": shortest_lines.id(),
+                    "INPUT": shortest_lines,
                     "FIELD_NAME": "d1",
                     "FIELD_TYPE": 0,  # float
                     "FIELD_LENGTH": 20,
@@ -233,7 +233,7 @@ class HarvestAccessibilityAlg(QgsProcessingAlgorithm):
             p2 = processing.run(
                 "native:extractspecificvertices",
                 {
-                    "INPUT": shortest_lines.id(),
+                    "INPUT": shortest_lines,
                     "VERTICES": "-1",  # last vertex = nearest point on road
                     "OUTPUT": "memory:"
                 },
@@ -262,7 +262,7 @@ class HarvestAccessibilityAlg(QgsProcessingAlgorithm):
                     context=context, feedback=feedback
                 )["OUTPUT"]
                 feedback.pushInfo(self.tr("    -> {} segments after split.").format(roads_layer.featureCount()))
-                roads_source = roads_layer.id()
+                roads_source = roads_layer
             else:
                 roads_source = parameters[self.ROADS]
 
@@ -282,7 +282,7 @@ class HarvestAccessibilityAlg(QgsProcessingAlgorithm):
                     "native:shortestpathlayertopoint",
                     {
                         "INPUT": roads_source,
-                        "START_POINTS": p2.id(),
+                        "START_POINTS": p2,
                         "END_POINT": end_point,
                         "STRATEGY": 0,  # shortest distance
                         "DEFAULT_DIRECTION": 2,
@@ -297,7 +297,7 @@ class HarvestAccessibilityAlg(QgsProcessingAlgorithm):
                 r = processing.run(
                     "native:fieldcalculator",
                     {
-                        "INPUT": r.id(),
+                        "INPUT": r,
                         "FIELD_NAME": "landing_fid",
                         "FIELD_TYPE": 1,  # int
                         "FIELD_LENGTH": 20,
@@ -308,7 +308,7 @@ class HarvestAccessibilityAlg(QgsProcessingAlgorithm):
                     context=context, feedback=feedback
                 )["OUTPUT"]
 
-                routes_list.append(r.id())
+                routes_list.append(r)
 
             if not routes_list:
                 raise QgsProcessingException(self.tr(
@@ -329,7 +329,7 @@ class HarvestAccessibilityAlg(QgsProcessingAlgorithm):
             routes = processing.run(
                 "native:fieldcalculator",
                 {
-                    "INPUT": merged_routes.id(),
+                    "INPUT": merged_routes,
                     "FIELD_NAME": "d2",
                     "FIELD_TYPE": 0,
                     "FIELD_LENGTH": 20,
@@ -347,7 +347,7 @@ class HarvestAccessibilityAlg(QgsProcessingAlgorithm):
 
             routes = processing.run(
                 "native:extractbyexpression",
-                {"INPUT": routes.id(), "EXPRESSION": "\"d2\" IS NOT NULL", "OUTPUT": "memory:"},
+                {"INPUT": routes, "EXPRESSION": "\"d2\" IS NOT NULL", "OUTPUT": "memory:"},
                 context=context, feedback=feedback
             )["OUTPUT"]
 
@@ -362,7 +362,7 @@ class HarvestAccessibilityAlg(QgsProcessingAlgorithm):
             stats = processing.run(
                 "qgis:statisticsbycategories",
                 {
-                    "INPUT": routes.id(),
+                    "INPUT": routes,
                     "CATEGORIES_FIELD_NAME": ["tree_id"],
                     "VALUES_FIELD_NAME": "d2",
                     "OUTPUT": "memory:"
@@ -376,9 +376,9 @@ class HarvestAccessibilityAlg(QgsProcessingAlgorithm):
             p2_tmp = processing.run(
                 "native:joinattributestable",
                 {
-                    "INPUT": p2.id(),
+                    "INPUT": p2,
                     "FIELD": "tree_id",
-                    "INPUT_2": stats.id(),
+                    "INPUT_2": stats,
                     "FIELD_2": "tree_id",
                     "FIELDS_TO_COPY": ["min"],
                     "METHOD": 1,
@@ -392,7 +392,7 @@ class HarvestAccessibilityAlg(QgsProcessingAlgorithm):
             p2_with = processing.run(
                 "native:fieldcalculator",
                 {
-                    "INPUT": p2_tmp.id(),
+                    "INPUT": p2_tmp,
                     "FIELD_NAME": "d2",
                     "FIELD_TYPE": 0,
                     "FIELD_LENGTH": 20,
