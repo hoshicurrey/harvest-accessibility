@@ -21,3 +21,7 @@ __pycache__/
 
 # Claude Code
 .claude/
+
+# 実データ（正本はNAS、data-management-policy参照。data/sample はサンプルなのでgit管理）
+data/*
+!data/sample/

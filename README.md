@@ -48,7 +48,7 @@ Enable **Debug mode** (Advanced parameters) to also load intermediate layers int
 
 ## Sample Data
 
-The `sample_data/` directory contains sample files in EPSG:6676 (JGD2011 Japan Plane Rectangular CS IX):
+The `data/sample/` directory contains sample files in EPSG:6676 (JGD2011 Japan Plane Rectangular CS IX):
 
 - `operation_area.geojson` — harvest block polygon
 - `forest_roads.geojson` — connected road network (one segment intentionally disconnected to demonstrate NULL d2)
