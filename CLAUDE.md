@@ -10,7 +10,7 @@
 ## Current Status
 
 **Phase**: 皮の木代の利用間伐区域ポリゴン作成・再計算まで完了（2026-06-23）。結果の確認待ち
-**Next task**: tsk-370455881925 — 計算結果が正しいことを林さんに確認
+**Next task**: tsk-370455881925 — 集材距離の計算結果について現場検証のフィードバックを得る
 **Concern**: なし
 **Updated**: 2026-07-18
 <!-- END GENERATED PROJECT STATUS -->
