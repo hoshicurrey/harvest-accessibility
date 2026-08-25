@@ -1,0 +1,8 @@
+schema_version: 2
+project_id: "harvest-accessibility"
+status: "waiting"
+phase: "皮の木代の利用間伐区域ポリゴン作成・再計算まで完了（2026-06-23）。結果の確認待ち"
+next_task_id: "tsk-370455881925"
+next_action: null
+concern: null
+updated: "2026-07-18"
