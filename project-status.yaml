@@ -1,8 +1,8 @@
 schema_version: 2
 project_id: "harvest-accessibility"
-status: "waiting"
-phase: "皮の木代の利用間伐区域ポリゴン作成・再計算まで完了（2026-06-23）。結果の確認待ち"
-next_task_id: "tsk-370455881925"
+status: "active"
+phase: "集材距離の再計算まで完了（2026-06-23）。2026-09-04 に林さん（天竜フォレスター）から返答があり、9/8(火) 15:00–16:00 に浜松市天竜区両島925-1 で現地実証することが確定した（カレンダー「QGISプラグイン実証」）。フィードバック待ちの外部待ちは解消"
+next_task_id: "tsk-4559ac4722ce"
 next_action: null
 concern: null
-updated: "2026-07-18"
+updated: "2026-09-04"
